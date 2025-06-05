@@ -14,21 +14,30 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"> QWidget {
-        background-color: #f4f6f8;
+   <string notr="true">QWidget {
+        background-color: #f0f2f5;
         font-family: 'Segoe UI', 'Arial', sans-serif;
         font-size: 14px;
         color: #333;
     }
 
-    QLineEdit {
+    QLabel#titleLabel {
+        font-size: 24px;
+        font-weight: bold;
+        color: #0078d4;
+        padding-bottom: 10px;
+        qproperty-alignment: AlignHCenter;
+    }
+
+    QLineEdit#cityInput {
         padding: 6px 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         background-color: #fff;
+        min-width: 200px;
     }
 
-    QPushButton {
+    QPushButton#fetchButton {
         background-color: #0078d4;
         color: white;
         border: none;
@@ -36,34 +45,24 @@
         border-radius: 5px;
     }
 
-    QPushButton:hover {
-        background-color: #005ea2;
+    QPushButton#fetchButton:hover {
+        background-color: #005a9e;
     }
 
-    QLabel {
-        padding: 4px 0;
-    } 
-
-	#titleLabel {
-		font-size: 24px;
-    		font-weight: bold;
-    		color: #0078d4;
-    		margin-bottom: 10px;
-		qproperty-alignment: 'AlignHCenter';
-	}
-
-    #weatherLabel {
-        font-size: 18px;
-        font-weight: bold;
+    QLabel#weatherLabel,
+    QLabel#feelsLikeLabel,
+    QLabel#humidityLabel,
+    QLabel#windLabel {
+        font-size: 16px;
+        padding: 4px;
     }
 
-    #iconLabel {
+    QLabel#iconLabel {
         margin-top: 10px;
-		qproperty-alignment: 'AlignHCenter';
-    }
-</string>
+        qproperty-alignment: AlignHCenter;
+    }</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="backgroundFrame">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="titleLabel">

@@ -18,6 +18,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void setWeatherBackground(const QString &condition);
+    void fadeInWidget(QWidget *widget);
 private:
     Ui::MainWindow *ui;
     QNetworkAccessManager *networkManager;
