@@ -1,0 +1,28 @@
+{
+	"BUILD_DIR" : "C:/QtProjects/Weather-App/build/Desktop_Qt_6_8_1_MSVC2022_64bit-Debug/Weater-App_autogen",
+	"CMAKE_BINARY_DIR" : "C:/QtProjects/Weather-App/build/Desktop_Qt_6_8_1_MSVC2022_64bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/QtProjects/Weather-App/build/Desktop_Qt_6_8_1_MSVC2022_64bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/QtProjects/Weather-App",
+	"CMAKE_SOURCE_DIR" : "C:/QtProjects/Weather-App",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "Ninja",
+	"INCLUDE_DIR" : "C:/QtProjects/Weather-App/build/Desktop_Qt_6_8_1_MSVC2022_64bit-Debug/Weater-App_autogen/include",
+	"INPUTS" : 
+	[
+		"C:/QtProjects/Weather-App/resources/images/default.jpg",
+		"C:/QtProjects/Weather-App/resources/images/clouds.jpg",
+		"C:/QtProjects/Weather-App/resources/images/clear.jpg",
+		"C:/QtProjects/Weather-App/resources/images/rain.jpg"
+	],
+	"LOCK_FILE" : "C:/QtProjects/Weather-App/build/Desktop_Qt_6_8_1_MSVC2022_64bit-Debug/CMakeFiles/Weater-App_autogen.dir/AutoRcc_resources_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "resources" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_resources.cpp",
+	"RCC_EXECUTABLE" : "C:/Qt/6.8.1/msvc2022_64/bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "C:/QtProjects/Weather-App/build/Desktop_Qt_6_8_1_MSVC2022_64bit-Debug/CMakeFiles/Weater-App_autogen.dir/AutoRcc_resources_EWIEGA46WW_Used.txt",
+	"SOURCE" : "C:/QtProjects/Weather-App/resources.qrc",
+	"USE_BETTER_GRAPH" : true,
+	"VERBOSITY" : 0
+}

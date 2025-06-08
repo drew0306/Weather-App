@@ -20,6 +20,8 @@ public:
 
     void setWeatherBackground(const QString &condition);
     void fadeInWidget(QWidget *widget);
+    //void resizeEvent(QResizeEvent *event);
+    QString getApiKey();
 private:
     Ui::MainWindow *ui;
     QNetworkAccessManager *networkManager;

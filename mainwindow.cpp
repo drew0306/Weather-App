@@ -8,6 +8,8 @@
 #include <QJsonArray>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include <QFile>
+#include "backgroundwidget.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -15,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    backgroundWidget *bgWidget = new backgroundWidget(this);
 
     QNetworkAccessManager* iconManager = new QNetworkAccessManager(this);
 
@@ -27,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
             return;
         }
 
-        QString apiKey = "c61217f33df7836384a22acc4b3f677a";
+        QString apiKey = getApiKey();
         QString url = QString("https://api.openweathermap.org/data/2.5/weather?q=%1&appid=%2&units=imperial")
                           .arg(city)
                           .arg(apiKey);
@@ -72,7 +76,11 @@ MainWindow::MainWindow(QWidget *parent)
         ui->humidityLabel->setText(QString("💧 Humidity: %1%").arg(humidity));
         ui->windLabel->setText(QString("💨 Wind: %1 m/s").arg(windSpeed));
 
-        MainWindow::setWeatherBackground(description);
+        bgWidget->setGeometry(this->rect());
+        bgWidget->lower();
+        bgWidget->show();
+
+        bgWidget->setBackgroundImage(":/resources/images/default.jpg");
 
         QString iconUrl = QString("http://openweathermap.org/img/wn/%1@2x.png").arg(iconCode);
 
@@ -104,37 +112,38 @@ MainWindow::~MainWindow()
 
 void MainWindow::setWeatherBackground(const QString& condition)
 {
-    QString image;
+    QString imagePath;
 
     if (condition.contains("clear", Qt::CaseInsensitive))
-        image = ":/resources/images/clear.jpg";
+        imagePath = ":/resources/images/clear.jpg";
     else if (condition.contains("cloud", Qt::CaseInsensitive))
-        image = ":/resources/images/clouds.jpg";
+        imagePath = ":/resources/images/clouds.jpg";
     else if (condition.contains("rain", Qt::CaseInsensitive))
-        image = ":/resources/images/rain.jpg";
+        imagePath = ":/resources/images/rain.jpg";
     else if (condition.contains("snow", Qt::CaseInsensitive))
-        image = ":/resources/images/snow.jpg";
+        imagePath = ":/resources/images/snow.jpg";
     else
-        image = ":/resources/images/default.jpg";
+        imagePath = ":/resources/images/default.jpg";
 
-    QString style = QString(
-                        "QWidget#backgroundFrame {"
-                        "background-image: url(%1);"
-                        "background-position: center;"
-                        "background-repeat: no-repeat;"
-                        "background-size: cover;"
-                        "}").arg(image);
+    QPixmap bg(imagePath);
 
-    QPixmap bg(":/resources/images/default.jpg");
-    QPixmap scaled = bg.scaled(ui->backgroundFrame->size(), Qt::KeepAspectRatioByExpanding);
+    // Scale the image to the size of the background frame
+    QPixmap scaled = bg.scaled(
+        ui->backgroundFrame->size(),
+        Qt::KeepAspectRatioByExpanding,
+        Qt::SmoothTransformation
+        );
 
     QPalette pal;
     pal.setBrush(QPalette::Window, scaled);
+
     ui->backgroundFrame->setAutoFillBackground(true);
     ui->backgroundFrame->setPalette(pal);
+    ui->backgroundFrame->update();
 
-    ui->backgroundFrame->setStyleSheet(style);
+    qDebug() << "Exists:" << QFile::exists(imagePath);
 }
+
 
 void MainWindow::fadeInWidget(QWidget* widget)
 {
@@ -147,3 +156,25 @@ void MainWindow::fadeInWidget(QWidget* widget)
     anim->setEndValue(1.0);
     anim->start(QAbstractAnimation::DeleteWhenStopped);
 }
+
+/*void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+    if (bgWidget)
+        bgWidget->setGeometry(this->rect());
+}
+*/
+QString MainWindow::getApiKey() {
+    QFile file("config.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return "";
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        if (line.startsWith("API_KEY="))
+            return line.mid(QString("API_KEY=").length()).trimmed();
+    }
+    return "";
+}
+
